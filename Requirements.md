@@ -1,6 +1,6 @@
 Crear los directorios para cada una de las máquinas en el servidor remoto:
 ~~~
-mkdir -p /var/www/html/data/charlie/files/Mickey
+mkdir -p /var/www/html/data/charlie/files/{Mickey,Minnie,Donald}
 ~~~
 
 ### En Mickey
