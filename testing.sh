@@ -75,6 +75,7 @@ for row in "${remotehosts[@]}"; do
   SetVariables ${row} # OK
 done
 
+SendMailDaily
 
 
 #SetVariables ${hostip}
