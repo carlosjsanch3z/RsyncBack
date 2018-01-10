@@ -48,7 +48,10 @@ Pasar la clave a la máquina remota:
 ~~~
 cat ~/.ssh/id_rsa.pub | ssh user@IP 'cat >> .ssh/authorized_keys'
 ~~~
-
+O:
+~~~
+ssh-copy-id -i ~/.ssh/id_rsa.pub "usuario@ip -p 22"
+~~~
 Cambiar los permisos:
 ~~~
 chmod 700 ~/.ssh
