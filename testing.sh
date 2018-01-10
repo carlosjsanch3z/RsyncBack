@@ -18,7 +18,7 @@ hostip='' # Direccion IP Interna
 osdistro='' # Distribucción
 
 currentdate=$(date +%d-%m-%Y)
-logpath='/home/charlie/REPOSITORIOS/RsyncScript/logs/'
+logpath='logs/'
 logfile=${logpath}Backup-${currentdate}.log
 
 recipient='carlosjsanchezortega@gmail.com'
