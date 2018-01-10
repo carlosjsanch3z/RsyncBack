@@ -1,0 +1,30 @@
+/usr/bin/ssh -i ~/$keyname $stuser@$staddr /bin/mkdir $stdir/FullCopy-$date
+
+
+# Make the full backup
+/usr/bin/rsync -avzhe ssh --exclude-from 'exclude-list.txt' $stsource $stdest/FullCopy-$date
+
+# Add record of the full copy in coconut
+/usr/bin/psql -h $LOCALIP -d $DB -U $USER -c "INSERT backups into values'200'"
+
+
+# Make the incremental backup
+/usr/bin/rsync -avzhe ssh --exclude-from 'exclude-list.txt' $stsource $latest
+
+
+# Add record of the incremental copy in coconut
+/usr/bin/psql -h $LOCALIP -d $DB -U $USER -c "INSERT backups into values'200'"
+
+
+
+# Identify the last complete copy
+latest=$(/bin/ls -ltrp | /bin/grep 'FullCopy-*' | /usr/bin/tail -1 | /usr/bin/cut -d ' ' -f 10)
+
+
+function sendmail() {
+  mail -s "Backup Error `date +%F`" $to -r $sender < $LOGFILE
+}
+
+
+var/cache/apt/pkgcache.bin
+var/cache/apt/srcpkgcache.bin

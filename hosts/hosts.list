@@ -1,0 +1,3 @@
+mickey:root:10.0.0.12:debian
+minnie:root:10.0.0.4:ubuntu
+donald:root:10.0.0.11:centos
