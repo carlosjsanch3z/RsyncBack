@@ -24,6 +24,7 @@ logfile=${logpath}Backup-${currentdate}.log
 recipient='carlosjsanchezortega@gmail.com'
 sender='info@charliejsanchez.com'
 
+pkglistname='packages-installed.txt'
 
 excludefile='/root/exclude-list.txt' # Fichero que indica los directorios que no deseamos incluir en la copia
 coconutaddress='coconut.charliejsanchez.com'
@@ -55,7 +56,7 @@ function SetVariables() {
   hostip=$(cut -d ':' -f3 <<< "$1")
   osdistro=$(cut -d ':' -f4 <<< "$1")
 }
-
+# MEJORAR
 function CheckLastAction() {
   if [[ $? != 0 ]]; then
     printf "$1" >> $logfile
@@ -63,19 +64,34 @@ function CheckLastAction() {
     printf "OK!" >> $logfile
   fi
 }
-
+# OK
 function SendMailDaily() {
   mail -s "Backups Notification: ${currendate}" $recipient -r $sender < ${logfile}
+}
+
+# PENDIENTE
+
+function GetPkgsList() {
+  case ${osdistro,,} in
+    debian|ubuntu)
+      getpkgs='dpkg --get-selections | grep -v deinstall'
+      ;;
+    centos)
+      getpkgs='yum list installed'
+      ;;
+  esac
+  ssh ${remoteusercloud}@${hostip} "$getpkgs > $pkglistname"
 }
 
 checkHostFile # OK
 checkExistLogDay # OK
 getRemoteHost # OK
 for row in "${remotehosts[@]}"; do
-  SetVariables ${row} # OK
+  SetVariables ${row}
+  GetPkgList
 done
 
-SendMailDaily
+
 
 
 #SetVariables ${hostip}
