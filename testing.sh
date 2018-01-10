@@ -88,7 +88,7 @@ checkExistLogDay # OK
 getRemoteHost # OK
 for row in "${remotehosts[@]}"; do
   SetVariables ${row}
-  GetPkgList
+  GetPkgsList
 done
 
 
