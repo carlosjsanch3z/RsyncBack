@@ -111,7 +111,7 @@ function GetSizeInfo() {
 }
 
 function CheckHostRemote() {
-  ping -c 1 $1
+  ping -c 1 $1 > /dev/null
   CheckLastAction ${E} $1
 }
 
@@ -133,11 +133,8 @@ function Incr() {
   IncrTargetDir=IncrCopy-${currentdate}
   CreateFolderRemote ${IncrTargetDir}
   CriticalTargetDir='root'
-  echo "encrypt function"
   encryptDir ${IncrTargetDir} ${CriticalTargetDir}
-  echo "Get size"
   GetSizeInfo ${pathaddr} ${aliashost} ${IncrTargetDir}.tar.gz
-  echo "insert coconut"
   AddRegisterCoconut ${IncrTargetDir} ${bytes}
 }
 
@@ -160,9 +157,9 @@ function PP() {
   CheckHostRemote ${dbaddress}
   checkHostFile
   if [[ $DOW -eq 4 ]]; then
-    makeBackup incr
-  elif [[ $DOW -ne 4 ]]; then
     makeBackup full
+  elif [[ $DOW -ne 4 ]]; then
+    makeBackup incr
   fi
   SendMailDaily
 }
