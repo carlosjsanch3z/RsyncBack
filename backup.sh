@@ -125,11 +125,17 @@ function Full() {
 }
 
 function Incr() {
+  echo "Ejecutando rsync"
   ssh ${remoteusercloud}@${hostip} "rsync -azvhe ssh --exclude-from "${excludefile}" / ${remoteusercloud}@${coconutaddress}:${pathaddr}${aliashost}/backup/"
+  echo "Definiendo IncrCopy-DATE"
   IncrTargetDir=IncrCopy-${currentdate}
+  echo "definiendo critical dir root"
   CriticalTargetDir='root'
+  echo "encrypt function"
   encryptDir ${IncrTargetDir} ${CriticalTargetDir}
+  echo "Get size"
   GetSizeInfo ${pathaddr} ${aliashost} ${IncrTargetDir}.tar.gz
+  echo "insert coconut"
   AddRegisterCoconut ${IncrTargetDir} ${bytes}
 }
 
