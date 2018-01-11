@@ -50,7 +50,7 @@ function checkHostFile() {
 
 function checkExistLogDay() {
   if [[ ! -e $logfile ]]; then
-    printf "[${currentdate}]" >> $logfile
+    printf "[${currentdate}]\n" >> $logfile
   fi
 }
 
@@ -71,9 +71,9 @@ function SetVariables() {
 
 function CheckLastAction() {
   if [[ $? != 0 ]]; then
-    printf "$1${failed}" >> $logfile
+    printf "$1$2${failed}" >> $logfile
   else
-    printf "$1${okey}" >> $logfile
+    printf "$1$2${okey}" >> $logfile
   fi
 }
 
@@ -112,7 +112,7 @@ function GetSizeInfo() {
 
 function CheckHostRemote() {
   ping -c 1 $1
-  CheckLastAction ${E}$1
+  CheckLastAction ${E} $1
 }
 
 function Full() {

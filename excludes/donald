@@ -15,6 +15,7 @@
 /sys/*
 /tmp/*
 /usr/*
+/var/spool/*
 /var/cache/*
 /var/lib/*
 /var/log/*

@@ -19,8 +19,10 @@ initrd.img.old
 /usr/*
 /var/lib/apt/*
 /var/cache/apt/*
+/var/cache/debconf/*
 /var/log/*
 /var/tmp/*
+/var/lib/*
 /var/lib/dpkg/info/*
 /var/lib/mysql/*
 /home/ubuntu/glances/*
