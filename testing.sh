@@ -88,7 +88,7 @@ function GetPkgsList() {
 
 function Full() {
   # rsync - Conectarse por ssh desde la instancia
-  ssh ${remoteusercloud}@${hostip} "rsync -avzhe ssh --exclude-from "${excludefile}" / ${remoteusercloud}@${coconutaddress}:${pathaddr}${aliashost}/FullCopy-${currendate}"
+  ssh ${remoteusercloud}@${hostip} "rsync -avzhe ssh --exclude-from "${excludefile}" / ${remoteusercloud}@${coconutaddress}:${pathaddr}${aliashost}/FullCopy-${currentdate}"
   # Cifrar los ficheros que yo vea necesarios - Conectarse a raspy
   # tar compress - Conectarse a la raspy
   #ssh root@192.168.1.150 'cd /var/www/html/data/charlie/files/mickey/ && tar -zcvf FullCopy-2018-01-10.tar.gz backup/'
