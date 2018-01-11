@@ -94,10 +94,6 @@ function Full() {
   # coconut
 }
 
-function Incr() {
-
-}
-
 
 function makeBackup() {
     getRemoteHost # OK
