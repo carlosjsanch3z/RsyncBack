@@ -41,16 +41,16 @@ E='Testing network connectivity from: '
 
 function checkHostFile() {
   if [[ ! -f ${hostsfile} ]]; then
-    echo "Analizando el fichero ${hostsfile}${failed}" >> $logfile
+    printf "Analizando el fichero ${hostsfile}${failed}" >> $logfile
     exit 1
   else
-    echo "Analizando el fichero ${hostsfile}${okey}" >> $logfile
+    printf "Analizando el fichero ${hostsfile}${okey}" >> $logfile
   fi
 }
 
 function checkExistLogDay() {
   if [[ ! -e $logfile ]]; then
-    echo "[${currentdate}]" >> $logfile
+    printf "[${currentdate}]" >> $logfile
   fi
 }
 
@@ -107,7 +107,7 @@ function AddRegisterCoconut() {
 }
 
 function GetSizeInfo() {
-   ${bytes}=$(ssh root@${coconutaddress} "wc -c $1$2/$3 | cut -d ' ' -f1")
+   bytes=$(ssh root@${coconutaddress} "wc -c $1$2/$3 | cut -d ' ' -f1")
 }
 
 function CheckHostRemote() {
@@ -116,7 +116,7 @@ function CheckHostRemote() {
 }
 
 function Full() {
-  ssh ${remoteusercloud}@${hostip} "rsync -azhe ssh --exclude-from "${excludefile}" / ${remoteusercloud}@${coconutaddress}:${pathaddr}${aliashost}/FullCopy-${currentdate}"
+  ssh ${remoteusercloud}@${hostip} "rsync -azvhe ssh --exclude-from "${excludefile}" / ${remoteusercloud}@${coconutaddress}:${pathaddr}${aliashost}/FullCopy-${currentdate}"
   FullTargetDir=FullCopy-${currentdate}
   CriticalTargetDir='root'
   encryptDir ${FullTargetDir} ${CriticalTargetDir}
@@ -125,7 +125,7 @@ function Full() {
 }
 
 function Incr() {
-  ssh ${remoteusercloud}@${hostip} "rsync -azhe ssh --exclude-from "${excludefile}" / ${remoteusercloud}@${coconutaddress}:${pathaddr}${aliashost}/backup/"
+  ssh ${remoteusercloud}@${hostip} "rsync -azvhe ssh --exclude-from "${excludefile}" / ${remoteusercloud}@${coconutaddress}:${pathaddr}${aliashost}/backup/"
   IncrTargetDir=IncrCopy-${currentdate}
   CriticalTargetDir='root'
   encryptDir ${IncrTargetDir} ${CriticalTargetDir}
