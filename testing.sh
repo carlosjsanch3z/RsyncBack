@@ -21,6 +21,7 @@ excludefile=''
 currentdate=$(date +%d-%m-%Y)
 logpath='logs/'
 logfile=${logpath}Backup-${currentdate}.log
+DOW=$(date +%u)
 
 recipient='carlosjsanchezortega@gmail.com'
 sender='info@charliejsanchez.com'
