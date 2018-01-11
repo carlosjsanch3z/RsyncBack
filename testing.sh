@@ -16,6 +16,7 @@ aliashost='' # Nombre del host
 remoteusercloud='' # Usuario de la máquina remota, con el que conectamos
 hostip='' # Direccion IP Interna
 osdistro='' # Distribucción
+excludefile=''
 
 currentdate=$(date +%d-%m-%Y)
 logpath='logs/'
@@ -55,6 +56,7 @@ function SetVariables() {
   remoteusercloud=$(cut -d ':' -f2 <<< "$1")
   hostip=$(cut -d ':' -f3 <<< "$1")
   osdistro=$(cut -d ':' -f4 <<< "$1")
+  excludefile="/${remoteusercloud}/${aliashost}"
 }
 # MEJORAR
 function CheckLastAction() {
@@ -69,7 +71,7 @@ function SendMailDaily() {
   mail -s "Backups Notification: ${currendate}" $recipient -r $sender < ${logfile}
 }
 
-# PENDIENTE
+# OK
 
 function GetPkgsList() {
   case ${osdistro,,} in
@@ -83,16 +85,46 @@ function GetPkgsList() {
   ssh ${remoteusercloud}@${hostip} "$getpkgs > $pkglistname"
 }
 
-checkHostFile # OK
-checkExistLogDay # OK
-getRemoteHost # OK
-for row in "${remotehosts[@]}"; do
-  SetVariables ${row}
-  GetPkgsList
-done
+function Full() {
+  # rsync - Conectarse por ssh desde la instancia
+  rsync -avzhe ssh --exclude-from "${excludefile}" / ${remoteusercloud}@${coconutaddress}:${pathaddr}${aliashost}/FullCopy-${currendate}
+  # Cifrar los ficheros que yo vea necesarios - Conectarse a raspy
+  # tar compress - Conectarse a la raspy
+  #ssh root@192.168.1.150 'cd /var/www/html/data/charlie/files/mickey/ && tar -zcvf FullCopy-2018-01-10.tar.gz backup/'
+  # coconut
+}
+
+function Incr() {
+
+}
 
 
+function makeBackup() {
+    getRemoteHost # OK
+    for row in "${remotehosts[@]}"; do
+      SetVariables ${row}
+      GetPkgsList # OK
+      if [[ $1 = 'full' ]]; then
+        Full
 
+      elif [[ $1 = 'incr' ]]; then
 
-#SetVariables ${hostip}
-#ssh root@172.22.200.2 rsync -azhe ssh --exclude-from "${excludefile}" / ${remoteuser}@${coconutaddress}:${pathaddr}${aliashost}/backup
+      fi
+    done
+}
+
+function PP() {
+  checkHostFile # OK
+  checkExistLogDay # OK
+  if [[ $DOW -eq 4 ]]; then
+    makeBackup full
+  elif [[ $DOW -ne 4 ]]; then
+    makeBackup incr
+  fi
+}
+
+PP
+#tar -zcf /var/www/html/data/charlie/files/mickey/FullCopy-2018-01-10 /var/www/html/data/charlie/files/mickey/backup
+# tar uncompress
+#tar -zxf FullCopy-2018.tar.gz --transform s/prueba/yeah/
+# Decidir directorios de Centos
