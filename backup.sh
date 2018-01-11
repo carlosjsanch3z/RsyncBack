@@ -116,7 +116,7 @@ function CheckHostRemote() {
 }
 
 function CreateFolderRemote() {
-  ssh root@${coconutaddress} "cd ${pathaddr}${aliashost}/ && mkdir $1"
+  ssh root@${coconutaddress} "cd ${pathaddr}${aliashost}/ && cp -R backup/ $1"
 }
 
 function Full() {
