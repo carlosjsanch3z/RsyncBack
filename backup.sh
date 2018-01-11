@@ -71,9 +71,9 @@ function SetVariables() {
 
 function CheckLastAction() {
   if [[ $? != 0 ]]; then
-    printf "$1$2${failed}" >> $logfile
+    printf "$1 $2 ${failed}" >> $logfile
   else
-    printf "$1$2${okey}" >> $logfile
+    printf "$1 $2 ${okey}" >> $logfile
   fi
 }
 
@@ -152,9 +152,9 @@ function PP() {
   CheckHostRemote ${dbaddress}
   checkHostFile
   if [[ $DOW -eq 4 ]]; then
-    makeBackup full
-  elif [[ $DOW -ne 4 ]]; then
     makeBackup incr
+  elif [[ $DOW -ne 4 ]]; then
+    makeBackup full
   fi
   SendMailDaily
 }

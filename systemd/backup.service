@@ -1,0 +1,10 @@
+[Unit]
+Description=Automatizar Copias de Respaldo
+
+[Service]
+User=root
+Type=simple
+ExecStart=/usr/local/sbin/RsyncScript/backup.sh
+
+[Install]
+WantedBy=multi-user.target
