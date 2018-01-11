@@ -115,6 +115,10 @@ function CheckHostRemote() {
   CheckLastAction ${E} $1
 }
 
+function CreateFolderRemote() {
+  ssh root@${coconutaddress} "cd ${pathaddr}${aliashost}/ && mkdir $1"
+}
+
 function Full() {
   ssh ${remoteusercloud}@${hostip} "rsync -azvhe ssh --exclude-from "${excludefile}" / ${remoteusercloud}@${coconutaddress}:${pathaddr}${aliashost}/FullCopy-${currentdate}"
   FullTargetDir=FullCopy-${currentdate}
@@ -125,11 +129,9 @@ function Full() {
 }
 
 function Incr() {
-  echo "Ejecutando rsync"
   ssh ${remoteusercloud}@${hostip} "rsync -azvhe ssh --exclude-from "${excludefile}" / ${remoteusercloud}@${coconutaddress}:${pathaddr}${aliashost}/backup/"
-  echo "Definiendo IncrCopy-DATE"
   IncrTargetDir=IncrCopy-${currentdate}
-  echo "definiendo critical dir root"
+  CreateFolderRemote ${IncrTargetDir}
   CriticalTargetDir='root'
   echo "encrypt function"
   encryptDir ${IncrTargetDir} ${CriticalTargetDir}
