@@ -108,7 +108,7 @@ function makeBackup() {
         Full
 
       elif [[ $1 = 'incr' ]]; then
-
+        echo "OKEY xD"
       fi
     done
 }
