@@ -3,7 +3,7 @@
 Description=Ejecutar Copia de Respaldo
 
 [Timer]
-OnCalendar=*-*-* 00:05:00
+OnCalendar=*-*-* 00:13:00
 Persistent=true
 
 [Install]
