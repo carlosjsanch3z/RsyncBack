@@ -49,7 +49,7 @@ function checkHostFile() {
 }
 
 function checkExistLogDay() {
-  if [[ ! -e $logfile ]]; then
+  if [[ ! -f $logfile ]]; then
     printf "[${currentdate}]\n" >> $logfile
   fi
 }
@@ -112,7 +112,11 @@ function GetSizeInfo() {
 
 function CheckHostRemote() {
   ping -c 1 $1 > /dev/null
-  CheckLastAction ${E} $1
+  if [[ $? -eq 0 ]]; then
+    printf "Comprobando conectividad con: $1 ${failed}" >> $logfile
+  else
+    printf "Comprobando conectividad con: $1 ${okey}" >> $logfile
+  fi
 }
 
 function CreateFolderRemote() {
