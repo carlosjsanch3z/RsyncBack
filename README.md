@@ -1,5 +1,7 @@
-# RsyncBack
+## RsyncBack
 Script written in bash, to make backup copies of several hosts, making a complete backup weekly and an incremental backup every day.
+
+## NOTA: Antes de ejecutar el script con systemd
 
 ## Alojamiento o Ubicación del script
 El script se encuentra alojado en una máquina llamada "monitor", donde se ha utilizado un daemon, creando un service y un timer en /etc/systemd/system/.
@@ -83,22 +85,3 @@ Desencriptar:
 ~~~
 gpg -d -o test.tar.gz test.tar.gz.gpg
 ~~~
-
-## Explicación breve del código
-
-El script comprueba que tenga conectividad con el servidor encargado de almacenar las copias de respaldo en un volumen localmente y la conectividad con la base de datos de la aplicación que aloja los registros de dichas copias.
-
-Comprueba la existencia de un fichero log denominado "Backup-FechaActual"
-
-Comprueba que exista el fichero donde estan definida la información de las máquinas remotas que queremos respaldar:
-~~~
-mickey:root:10.0.0.12:debian:172.22.200.2
-minnie:root:10.0.0.4:ubuntu:172.22.200.56
-donald:root:10.0.0.11:centos:172.22.200.37
-~~~
-Consulta la información del fichero anterior y rellenar las variables necesarias.
-
-
-
-Todas las lineas volcadas en el fichero de log, serán enviadas por correo, al email declarado en la variable "recipient"
-
