@@ -7,8 +7,8 @@
 # Vars
 DOW=$(date +%u)
 currentdate=$(date +%d-%m-%Y)
-hostsfile='hosts/hosts.list'
-logpath='logs/'
+hostsfile='/usr/local/sbin/RsyncBack/hosts/hosts.list'
+logpath='/usr/local/sbin/RsyncBack/logs/'
 pkglistname='packages-installed.txt'
 recipient='carlosjsanchezortega@gmail.com'
 sender='info@charliejsanchez.com'
