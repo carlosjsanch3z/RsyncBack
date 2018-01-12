@@ -113,9 +113,9 @@ function GetSizeInfo() {
 function CheckHostRemote() {
   ping -c 1 $1 > /dev/null
   if [[ $? -eq 0 ]]; then
-    printf "Comprobando conectividad con: $1 ${failed}" >> $logfile
-  else
     printf "Comprobando conectividad con: $1 ${okey}" >> $logfile
+  else
+    printf "Comprobando conectividad con: $1 ${failed}" >> $logfile
   fi
 }
 
